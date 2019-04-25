@@ -124,6 +124,7 @@ def parse_label():
                 height, weight, _ = img.shape
         
                 idx_mat = np.zeros((height, weight))
+                '''
                 for h in range(height):
                     for w in range(weight):
                         color = tuple(img[h, w])
@@ -133,6 +134,10 @@ def parse_label():
                         except:
                             # no index, assign to void
                             idx_mat[h, w] = 19
+                '''
+                for ind in range(len(labels)):
+                    idx_mat += ind*(img[:,:,0]==labels[ind].color[0])*(img[:,:,1]==labels[ind].color[1])*(img[:,:,2]==labels[ind].color[2])
+                    
                 idx_mat = idx_mat.astype(np.uint8)
                 np.save(lab_name, idx_mat)
                 print("Finish %s" % (filename))
